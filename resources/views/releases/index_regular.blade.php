@@ -171,53 +171,46 @@ li a:hover:not(.active) {
 .button-container form {
     margin-right: 5px;
 }
-
+.search{
+    position: relative; right: 8px;
+}
+.btn-info{
+    position: relative;
+    right: 10px;
+}
+#s2{
+    position: relative;
+    right: 10px;
+}
     </style>
 </head>
 <body>
+    @Include('jobs.home')
 @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
-<div class="header">
-    <h5 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;color:blue;">Section: Information Communication Technology Unit (RD/ARD)</h5>
-</div>
-<div class="shoulder">
-    <img src="{{ asset('image/philippines_doh-logo.png')}}" alt="image 2" style="width: 140px; height: auto;">
-    <h6 style="color: whitesmoke; text-align: center; font-size: 12px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
-        Republic of the Philippines<br>
-        CENTRAL VISAYAS CENTER for HEALTH DEVELOPMENT<br>
-        <strong style="font-size: 30px;"> Department of Health</strong><br>
-        <strong style="font-size: 22px; font-family: Arial, sans-serif; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">ID Release Tracking System (IRTS)</strong>
-    </h6>
-    <img src="{{ asset('image/Bagong_Pilipinas.png')}}" alt="image 1" style="width: 113px; height: auto;">
-</div>
 
-<!-- navbar -->
-<ul>
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#about">About</a></li>
-</ul>
-
-
+<br><br>
 <!-- Search form -->
-<center><br>
-<form action="{{ route('release.search') }}" method="GET">
-        <input type="text" name="query" placeholder="Search..." class="search" value="{{ request()->input('query') }}" style="background-color:lightgray;width:560px; height:35px;">
-        <button type="submit" style="background-color:lightgreen;height:35px;width:85px;"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-    </form>
+<center>
+
     
 <!-- Form modal -->
     <h2 class="text-center mt-5"></h2>
+   
     <div class="container">
         <div class="row">
             <div class="col-12 left-align">
+      
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#formModal" >
-            <i class="fa-solid fa-plus" style="color:white;"style="font-weight: bold; font-size: 10px;"></i> Add New Release 
-                </button>
+            <i class="fa-solid fa-plus" style="color:white;"style="font-weight: bold; font-size: 10px;"></i> Regular Release 
+                </button> 
+                <form action="{{ route('release.search') }}" method="GET">
+        <input type="text" name="query" placeholder="Search..." class="search" value="{{ request()->input('query') }}" style="background-color:lightgray;width:570px; height:40px;">
+        <button type="submit" id="s2"style="background-color:lightgreen;height:40px;width:100px;"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+    </form>
             </div>
         </div>
     </div><br><br>

@@ -29,10 +29,30 @@ Route::get('/releases/search', [ReleaseController::class, 'search'])->name('rele
 Route::get('/releases/search', [ReleaseController::class, 'search2'])->name('release.search');
 
 
+Route::get('releases/index_regular', [ReleaseController::class, 'index_regular'])->name('releases.index_regular');
+
+
 Route::get('jobs/index_job_order', [JobController::class, 'index_job_order'])->name('job.index_job_order');
 Route::post('jobs/store', [JobController::class, 'store'])->name('job.store');
 Route::get('/jobs/{job}/edit', [JobController::class, 'edit'])->name('jobs.edit');
 Route::put('/jobs/{job}', [JobController::class, 'update'])->name('jobs.update');
+
+Route::get('jobs/home', [JobController::class, 'home'])->name('job.home');
+Route::get('jobs/home', [JobController::class, 'home'])->name('jobs.home');
+
+
+Route::get('jobs/index_job_order', [JobController::class, 'index_job_order'])->name('jobs.index_job_order');
+Route::get('/jobs/index_job_order', [JobController::class, 'index_job_order'])->name('job.index_job_order');
+
+Route::put('/jobs/{job}/update', [JobController::class, 'update'])->name('job.update');
+
+
+
+
+
+
+
+
 
 
 

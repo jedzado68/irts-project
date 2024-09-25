@@ -58,7 +58,7 @@ class ReleaseController extends Controller
         // Update the record with new data
         $release->update($data);
           
-        return redirect(route('release.index_regular'))->with('success', 'Release Updated Successfully');
+        return redirect(route('releases.index_regular'))->with('success', 'Release Updated Successfully');
 
     }
     

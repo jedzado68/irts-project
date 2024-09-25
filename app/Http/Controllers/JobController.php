@@ -16,7 +16,6 @@ class JobController extends Controller
     return view('jobs.index_job_order', compact('jobs'));
 }
 
-   
 public function store(Request $request)
 {
     \Log::info('Store method called', $request->all());
@@ -36,12 +35,17 @@ public function store(Request $request)
 
     try {
         $newJob = Job::create($data);
-        return response()->json(['success' => true, 'message' => 'Job created successfully.']);
+
+        // Redirect to jobs.index_job_order route with success message
+        return redirect()->route('job.index_job_order')->with('success', 'Job has been successfully created.');
     } catch (\Exception $e) {
         \Log::error('Error creating job:', ['exception' => $e]);
-        return response()->json(['success' => false, 'message' => 'Error creating job.'], 500);
+
+        // Redirect back with error message
+        return redirect()->back()->with('error', 'An error occurred while creating the job. Please try again later.');
     }
 }
+
 
 public function edit($id)
 
@@ -52,7 +56,8 @@ public function edit($id)
 
 public function update(Request $request, $id)
 {
-    \Log::info('Update method called', $request->all());
+    // \Log::info('Update method called', $request->all());
+    \Log::info('Update method called', ['request_data' => $request->all()]);
 
     // Validate the incoming data
     $data = $request->validate([
@@ -80,6 +85,10 @@ public function update(Request $request, $id)
     return redirect()->route('job.index_job_order')->with('success', 'Job updated successfully.');
 }
 
+   public function home()
+   {
+     return view('jobs.home');
+   }
 
 }
 
