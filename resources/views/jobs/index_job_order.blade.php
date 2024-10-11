@@ -73,6 +73,7 @@
         .Thead {
             font-size: 18px;
             color: black;
+            background-color:#00CCCC;
         }
         ul {
             list-style-type: none;
@@ -130,7 +131,7 @@
             background-color: #339966;
             font-size: 15px;
             position: relative;
-            right: 700px;
+            right: 740px;
         }
         .btn-secondary {
             background-color: #6c757d;
@@ -165,7 +166,7 @@
     </style>
 </head>
 <body>
-    @Include('jobs.home')
+      @Include('jobs.home')
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -182,8 +183,8 @@
         </button>
 
      <form action="{{ route('release.search') }}" method="GET" style="display: flex; align-items: center;">
-        <input type="text" name="query" placeholder="Search..." class="search" value="{{ request()->input('query') }}" style="background-color: lightgray; width: 560px; height: 40px; margin-right: 5px;">
-        <button type="submit" id="s2" style="background-color: lightgreen; height: 40px; width: 90px;">
+        <input type="text" name="query" placeholder="Search" class="search" value="{{ request()->input('query') }}" style="background-color: lightgray; width: 560px; height: 40px; margin-right: 5px; position: relative; right: 738px;">
+        <button type="submit" id="s2" style="background-color: lightgreen; height: 40px; width: 90px; position: relative; right: 741px;">
         <i class="fa-solid fa-magnifying-glass"></i> Search
         </button>
     </form>
@@ -197,7 +198,7 @@
 
 
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-bordered" style="background-color:white;">
                 <thead class="Thead">
                     <tr>
                         <th>First Name</th>
@@ -226,34 +227,37 @@
                         <td style="font-weight: bold;">{{ $job->gender }}</td>
                         <td style="font-weight: bold;">{{ $job->user_id }}</td>
                         <td style="font-weight: bold;">{{ $job->date }}</td>
-                        <td>
-                            <div class="button-container">
-                                <!-- Edit Button -->
-                                <button type="button" class="btn-success edit-btn" data-toggle="modal" data-target="#updatejobModal" style="width: 30px;"
-                        data-id="{{ $job->id }}"
-                        data-firstname="{{ $job->firstname }}"
-                        data-middlename="{{ $job->middlename }}"
-                        data-lastname="{{ $job->lastname }}"
-                        data-designation="{{ $job->designation }}"
-                        data-section="{{ $job->section }}"
-                        data-division="{{ $job->division }}"
-                        data-status="{{ $job->employee_status }}"
-                        data-gender="{{ $job->gender }}"
-                        data-userid="{{ $job->user_id }}"
-                        data-birthdate="{{ $job->date }}">
-                        <i class="fa-regular fa-pen-to-square"></i>
 
+                     <td>
+    <div class="button-container">
+        <!-- Edit Button -->
+        <button type="button" class="btn-success edit-btn" data-toggle="modal" data-target="#updatejobModal" style="width: 30px;"
+            data-id="{{ $job->id }}"
+            data-firstname="{{ $job->firstname }}"
+            data-middlename="{{ $job->middlename }}"
+            data-lastname="{{ $job->lastname }}"
+            data-designation="{{ $job->designation }}"
+            data-section="{{ $job->section }}"
+            data-division="{{ $job->division }}"
+            data-status="{{ $job->employee_status }}"
+            data-gender="{{ $job->gender }}"
+            data-userid="{{ $job->user_id }}"
+            data-birthdate="{{ $job->date }}">
+            <i class="fa-regular fa-pen-to-square"></i>
+        </button>
+        <!-- Delete Form -->
+        <form action="{{ route('jobs.destroy', $job->id) }}" method="POST" style="display: inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn-danger" style="position: relative; left: 23px;" onclick="return confirm('Are you sure you want to delete this job?');">
+    <i class="fa-solid fa-trash-arrow-up fa-sm"></i>
 
-                    </button>
-                                <!-- Delete Form -->
-                                <form action="" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-danger" style="position: relative; left: 23px;" onclick="return confirm('Are you sure you want to delete this job?');"><i class="fa-solid fa-trash-arrow-up"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
+    </button>
+</form>
+
+    </div>
+</td>
+
                     </tr>
                     @endforeach
                 </tbody>
@@ -262,90 +266,90 @@
     </center>
 
     <!-- Add/Edit Job Modal -->
-    <div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="jobModalLabel">JO Employee</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form id="jobForm" action="{{ route('job.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <input type="hidden" id="jobId" name="job_id">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="firstname">First Name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="middlename">Middle Name</label>
-                                <input type="text" class="form-control" id="middlename" name="middlename">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="lastname">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="designation">Designation</label>
-                                <input type="text" class="form-control" id="designation" name="designation" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="section">Section</label>
-                                <input type="text" class="form-control" id="section" name="section" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="division">Division</label>
-                                <input type="text" class="form-control" id="division" name="division" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="employee_status">Employee Status</label>
-                               
-                                <select id="gender" name="gender" class="form-control" style="width: 100%; min-width: 200px;" required>
-                                <option value="" disabled selected></option>
-                                <option value="Rergular ">Regular Employee</option>
-                                <option value="job Order">Job Order</option>
-                            </select>
-                            </div>
-                            <div class="form-group col-md-6">
-    <label for="gender">Gender / Select Gender</label>
-    <select id="gender" name="gender" class="form-control" style="width: 100%; min-width: 200px;" required>
-        <option value="" disabled selected></option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select>
-</div>
-
-
-
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="user_id">User ID</label>
-                                <input type="text" class="form-control" id="user_id" name="user_id" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="date">Birth Date</label>
-                                <input type="date" class="form-control" id="date" name="date" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-success">Save Release</button>
-                    </div>
-                </form>
+ <!-- Add/Edit Job Modal -->
+<div class="modal fade" id="jobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="jobModalLabel">JO Employee</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form id="jobForm" action="{{ route('job.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <input type="hidden" id="jobId" name="job_id">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">First Name</label>
+                            <input type="text" class="form-control" id="firstname" name="firstname" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="middlename">Middle Name</label>
+                            <input type="text" class="form-control" id="middlename" name="middlename">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" class="form-control" id="lastname" name="lastname" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="designation">Designation</label>
+                            <input type="text" class="form-control" id="designation" name="designation" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="section">Section</label>
+                            <input type="text" class="form-control" id="section" name="section" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="division">Division</label>
+                            <input type="text" class="form-control" id="division" name="division" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="employee_status">Employee Status</label>
+                            <select id="employee_status" name="employee_status" class="form-control" required>
+                                <option value="" disabled selected></option>
+                                <option value="Regular">Regular Employee</option>
+                                <option value="Job Order">Job Order</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="gender">Gender</label>
+                            <select id="gender_select" name="gender" class="form-control" required>
+                                <option value="" disabled selected></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="user_id">User ID</label>
+                            <input type="text" class="form-control" id="user_id" name="user_id" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="birth_date">Birth Date</label>
+                         
+                            <input type="date" class="form-control" id="date" name="date" required>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-dark">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+
     <!-- form for update -->
     <div class="modal fade" id="updatejobModal" tabindex="-1" role="dialog" aria-labelledby="jobModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -356,7 +360,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form id="jobForm" action="{{ route('job.update', $job->id) }}" method="post">
+                
+                <form id="jobForm" action="" method="post">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
@@ -503,6 +508,14 @@ $('#updatejobModal').on('show.bs.modal', function(event) {
     // Update the form action URL
     modal.find('form').attr('action', '/jobs/' + jobId);
 });
+
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        let jobId = this.getAttribute('data-job-id'); // Assuming you set data-job-id in your button
+        document.getElementById('jobForm').action = `/jobs/${jobId}/update`; // Update the action dynamically
+    });
+});
+
 </script>
 
 

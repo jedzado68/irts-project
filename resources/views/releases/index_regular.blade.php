@@ -13,12 +13,14 @@
         }
         .container {
             margin-top: 50px;
+          
         }
         .modal-content {
             padding: 30px;
         }
         .form-row {
             margin-bottom: 10px;
+           
         }
         .header {
             background-color: lightblue;
@@ -44,6 +46,7 @@
             border-collapse: collapse;
             font-size: 12px;
             width: 85%;
+           
         }
         th, td {
             padding: 5px;
@@ -62,6 +65,7 @@
         }
         .form-control {
             margin-bottom: 20px;
+          
         }
         .dropdown-menu {
             max-height: 600px;
@@ -69,7 +73,7 @@
         }
         .Thead {
             font-size: 18px;
-            color: black;
+            background-color: #3AA655;
         }
 
         ul {
@@ -103,7 +107,7 @@ li a:hover:not(.active) {
 
 /* Style the form container */
 #infoForm {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
@@ -172,11 +176,11 @@ li a:hover:not(.active) {
     margin-right: 5px;
 }
 .search{
-    position: relative; right: 8px;
+    position: relative; left: 4px;
 }
 .btn-info{
     position: relative;
-    right: 10px;
+    left: 1px;
 }
 #s2{
     position: relative;
@@ -184,13 +188,23 @@ li a:hover:not(.active) {
 }
     </style>
 </head>
-<body>
-    @Include('jobs.home')
+<body style="background-color: lightgray;">
+@Include('jobs.home') 
 @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <br><br>
 <!-- Search form -->
@@ -199,8 +213,8 @@ li a:hover:not(.active) {
     
 <!-- Form modal -->
     <h2 class="text-center mt-5"></h2>
-   
-    <div class="container">
+ 
+    <div class="container" >
         <div class="row">
             <div class="col-12 left-align">
       
@@ -209,7 +223,7 @@ li a:hover:not(.active) {
                 </button> 
                 <form action="{{ route('release.search') }}" method="GET">
         <input type="text" name="query" placeholder="Search..." class="search" value="{{ request()->input('query') }}" style="background-color:lightgray;width:570px; height:40px;">
-        <button type="submit" id="s2"style="background-color:lightgreen;height:40px;width:100px;"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        <button type="submit" id="s2"style="background-color:lightgreen;height:40px;width:100px; position:relative; left:1px;"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
     </form>
             </div>
         </div>
@@ -217,7 +231,7 @@ li a:hover:not(.active) {
 
    <!-- Table Data Display -->
     <div class="table-responsive">
-        <table class="table table-bordered" style="wi">
+        <table class="table table-bordered" style="background-color:white;">
             <thead class="Thead">
                 <tr>
                     <th>First Name</th>
@@ -288,7 +302,7 @@ li a:hover:not(.active) {
             {{ $releases->links() }}
         </div>
 </div>
-     
+
 </center>
         
 
@@ -533,6 +547,20 @@ $(document).ready(function() {
        
     });
 });
+</script>
+
+<script>
+
+    document.getElementById('infoForm').addEventListener('submit', function(event) {
+        var userIdInput = document.querySelector('input[name="user_id"]');
+        var userIdValue = userIdInput.value;
+        console.log(userIdValue);       // Check if the User ID is exactly 9 digits
+        if (userIdValue.length !== 9 || isNaN(userIdValue)) {
+            event.preventDefault(); // Prevent form submission
+            alert('User ID must be exactly 9 digits.');
+            userIdInput.focus(); // Focus the input for correction
+        }
+    });
 </script>
 
 </body>

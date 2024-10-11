@@ -22,7 +22,7 @@ public function store(Request $request)
 
     $data = $request->validate([
         "firstname" => 'required|string|max:255',
-        "middlename" => 'required|string|max:255',
+        "middlename" => 'nullable|string|max:255', // Adjusted to allow null
         "lastname" => 'required|string|max:255',
         "designation" => 'required|string|max:255',
         "section" => 'required|string|max:255',
@@ -30,7 +30,7 @@ public function store(Request $request)
         "employee_status" => 'required|string|max:255',
         "gender" => 'required|string|max:10',
         "user_id" => 'required|integer',
-        "date" => 'required|date'
+        "date" => 'required|date', // If you rename the field in the form, this should match
     ]);
 
     try {
@@ -47,12 +47,19 @@ public function store(Request $request)
 }
 
 
-public function edit($id)
 
+// public function edit($id)
+
+// {
+//     $job = Job::findorFail($id);
+//     return view('index_job_order.edit', compact('job'));
+// }
+public function edit($id)
 {
-    $job = Job::findorFail($id);
-    return view('index_job_order.edit', compact('job'));
+    $job = Job::findOrFail($id);
+    return view('index_job_order.edit', compact('job')); // Pass the job to the view
 }
+
 
 public function update(Request $request, $id)
 {
@@ -90,6 +97,28 @@ public function update(Request $request, $id)
      return view('jobs.home');
    }
 
+   public function destroy($id)
+   {
+       // Find the job by ID and delete it
+       $job = Job::findOrFail($id);
+       $job->delete();
+   
+       // Redirect to the job order index page with a success message
+       return redirect()->route('job.index_job_order')->with('success', 'Job deleted successfully.');
+   }
+   
+   public function registration()
+   {
+       return view('users.registration');
+   }
+  
+      
+      
+   public function login()
+   {
+       // Render the login view
+       return view('users.login');
+   }
 }
 
     

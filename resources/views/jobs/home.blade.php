@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <title>Document</title>
 
     <style>
@@ -51,7 +53,7 @@
         }
     </style>
 </head>
-<body style="background-color: lightblue;">
+<body style="background-color: lightgray;">
 <div class="header">
         <h5 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);font-weight: bold;color:blue;">Section: Information Communication Technology Unit (RD/ARD)</h5>
     </div>
@@ -61,16 +63,22 @@
             Republic of the Philippines<br>
             CENTRAL VISAYAS CENTER for HEALTH DEVELOPMENT<br>
             <strong style="font-size: 30px;">Department of Health</strong><br>
-            <strong style="font-size: 22px; font-family: Arial, sans-serif; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">ID Release Tracking System (IRTS)</strong>
+            <strong style="font-size: 22px; font-family: Arial, sans-serif; color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">(IRTS / CCTV LOGS)</strong>
         </h6>
         <img src="{{ asset('image/Bagong_Pilipinas.png') }}" alt="image 1" style="width: 113px; height: auto;">
     </div>
-    <!-- navbar -->
+  
     <ul>
-        <li><a href="{{ route('jobs.home') }}">Home</a></li>
+        <!-- <li><a href="{{ route('jobs.home') }}">Home</a></li> -->
+        <li><a href="{{ route('jobs.dashboard') }}">Dashboard</a></li>
         <li><a href="{{ route('job.index_job_order') }}">JO Form</a></li>
         <li><a href="{{ route('releases.index_regular') }}">Regular Form</a></li>
+        <li><a href="{{ route('logs.employee_logs') }}">Cctv Logs</a></li>
         <li><a href="#about">Log out</a></li>
     </ul>
+    
 </body>
-</html>
+</html> 
+
+
+

@@ -69,13 +69,13 @@ class ReleaseController extends Controller
     }
 
    
-public function destroy(Release $release)
-
-{
-    $release->delete();
-    return redirect(route('release.index_regular'))->with('success', 'Release Updated Successfully');
-}
-
+    public function destroy(Release $release)
+    {
+        $release->delete();
+        return redirect()->route('releases.index_regular')->with('success', 'Release Deleted Successfully');
+    }
+    
+    
 public function indexRegular()
 {
     // Your logic to fetch data and return the view
@@ -97,6 +97,30 @@ public function search2(Request $request)
 
     // Return the search results to a view
     return view('releases.index_regular', compact('releases', 'query'));
+}
+public function store1(Request $request)
+{
+    // Base validation rules
+    $rules = [
+        'employee_number' => [
+            'required',
+            'numeric'
+        ],
+        // Other fields
+    ];
+
+    // Apply 9-digit rule for regular employees
+    if ($request->input('employee_type') === 'regular') {
+        $rules['employee_number'][] = 'digits:9';
+    }
+         dd($request->input('employee_type'));
+    // Validate the request with the rules
+    $request->validate($rules);
+
+    // Proceed with saving the data
+    // Employee::create($request->all());
+
+    return redirect()->back()->with('success', 'Employee record saved successfully.');
 }
 
 }
