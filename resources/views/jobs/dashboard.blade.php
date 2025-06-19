@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .user-view-card {
-            padding: 20px;
+            padding: 10px;
             border-radius: 8px;
             text-align: center;
             margin-bottom: 20px; /* Space below cards */
